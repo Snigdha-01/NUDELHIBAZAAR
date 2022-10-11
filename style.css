@@ -3,13 +3,18 @@
 } */
 
 #div1{
-    background-color:teal;
+    background-color:greenyellow;
     color:white;
     text-align: center;
     padding: 30px 30px ;
+    border-bottom: solid;
+    border-color: black;
+    border-width: 5px;
 }
 #div2{
-    background-color:greenyellow;
+    /* border-style:solid; */
+    /* border-radius: 5px;
+    border-width: 2px; */
 }
 #row1{
     color:white;
@@ -33,6 +38,9 @@
 } */
 
 #row4{
+    border-top: solid;
+    border-color: black;
+    border-width: 5px;
     height:400px;
     width:100px;
 }
