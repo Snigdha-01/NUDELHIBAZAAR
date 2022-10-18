@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    <script>
+        /* This function makes the AJAX API Call and returns Response */
+        function get_item_catalog () {
+            console.log("Call from get_item_catalog2");
+            let searchString="tea";
+
+            return $.ajax ({
+               type: "POST",
+               url: ("https://nudelhibazaar.com/api/get-item-catalog"),
+               data: JSON.stringify({ search_string: searchString }),
+               cache: false,
+               success: function(result) {
+                    console.log("Return from get_item_catalog");
+                    console.log(result.status);
+               }
+           });
+        }
+
+        /* This function processes the response from the AJAX API Call */
+        function print (response) {
+            console.log("Call from process_response");
+
+            let counter=0;
+
+            console.log (response.status);
+            let obj = JSON.parse (response.catalog_list);
+            for (var i = 0; i < obj.length; i++) {
+                console.log("name " + i + ": " + obj[i].name);
+                console.log("image_url " + i + ": " + obj[i].image_url);
+                console.log("title " + i + ": " + obj[i].title);
+                console.log("description " + i + ": " + obj[i].description);
+                console.log("price " + i + ": " + obj[i].price);
+                counter++;
+            }
+            console.log("counter= " + counter);
+        }
+
+        /* This function is called when search button is clicked */
+        function button_call() {
+            /* Call get_item_catalog API */
+            self.get_item_catalog().then (function (response) {
+                console.log("Call print (response) after get_item_catalog API completion");
+                /* Call print with response value returned from the AJAX call */
+                print (response);
+            })
+        }
+
+        /* Testing button call after page load (instead of calling from button click) */
+        button_call();
+    </script>
+</body>
+</html>
+
+<!-- //document.getElementById('Mylist').innerHTML=obj[i].name+" "+obj[i].image_url+" "+obj[i].title+" "+obj[i].price+" "+obj[i].description;
+// const items = ["tea-1","tea-2","tea-3" , "tea-4" , "tea-5"];
+  
+// let txt="";
+// txt=txt+'<div class="container">'
+//    txt=txt+'<div class="row">';
+// for( let i=0 ; i<items.length ; i++)
+// {
+   
+//    txt=txt+'<div class="col">'
+//    txt=txt+'<input type="checkbox">';
+//    txt=txt+'<img  src="https://picsum.photos/200/200?random=30">';
+  
+//    txt=txt+'<input type="text" placeholder="enter new price">'+items[i];
+
+//    txt=txt+'</div>';
+//    txt=txt+'<br>';
+// }
+// txt=txt+'</div>';
+//    txt=txt+'</div>';
+// document.getElementById("Mylist").innerHTML=txt; -->
+
+div class="container">
+//     <div class="row mt-5">
+
+//         <div class="col">
+//             <div class="form-check">
+//               <label class="form-check-label">
+//                 <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
+//                 Display value
+//               </label>
+//             </div>
+//             <img src="https://picsum.photos/200/100?random=1" alt="">
+//             <h3>Brookbond tea</h3> 
+
+
+//              <script>
+//               function get_item_catalog() {
+//                   let searchString="lipton";
+//                   $.post("https://nudelhibazaar.com/api/get-item-catalog"
+//                       ,JSON.stringify({ search_string: searchString })
+//                       ,function(result) {
+//                           console.log(result.status);
+      
+//                           let obj = JSON.parse(result.catalog_list);
+//                           for (var i = 0; i < obj.length; i++) {
+//                              console.log("name " + i + ": " + obj[i].name);
+//                              console.log("image_url " + i + ": " + obj[i].image_url);
+//                              console.log("title " + i + ": " + obj[i].title);
+//                              console.log("description " + i + ": " + obj[i].description);
+//                           }
+//                       }
+//                   );
+//               }
+          </script>

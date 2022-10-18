@@ -15,49 +15,92 @@
 
     <!--JAVASCRIPT-->
     <script>
-        // function print(){
-        // var x ="hello world";
-        // document.getElementById('result').innerHTML=x; }
+       let js_array=[];
+       function get_item_catalog () {
+            console.log("Call from get_item_catalog2");
+            let searchString="tea";
 
-        function get_item_catalog() {
-        $.post("https://nudelhibazaar.com/api/get-item-catalog"
-            ,function(result) {
-                console.log(result);
-                console.log(result.status);
-                console.log(result.item_name);
+            return $.ajax ({
+               type: "POST",
+               url: ("https://nudelhibazaar.com/api/get-item-catalog"),
+               data: JSON.stringify({ search_string: searchString }),
+               cache: false,
+               success: function(result) {
+                    console.log("Return from get_item_catalog");
+                    console.log(result.status);
+               }
+              
+
+           });
+            //from here
+            for (var i = 0, l1 =js_array.length ; i < l1; i++) {
+                 for (var j = 0, l2 =js_array[i].length; j < l2; j++) {
+                    js_array.push(obj[i][j].name , obj[i][j].image_url , obj[i][j].title , obj[i][j].description ,  obj[i][j].price );
+                 }
+                }
+                   console.log("array items"+js_array.length);
+           //till here
+        }
+              
+        function print (response) {
+            console.log("Call from process_response");
+           
+            let counter=0;
+
+            console.log (response.status);
+            let obj = JSON.parse (response.catalog_list);
+            for (var i = 0; i < obj.length; i++) {
+                console.log("name " + i + ": " + obj[i].name);
+                console.log("image_url " + i + ": " + obj[i].image_url);
+                console.log("title " + i + ": " + obj[i].title);
+                console.log("description " + i + ": " + obj[i].description);
+                console.log("price " + i + ": " + obj[i].price);
+                counter++;
             }
-        );
-    }
-        function print()
-        {  
-          get_item_catalog();
-          const items = ["tea-1","tea-2","tea-3" , "tea-4" , "tea-5"];
+            console.log("counter= " + counter);
+
+            //from here 
+            let txt="";
             
-          let txt="";
-          txt=txt+'<div class="container">'
-             txt=txt+'<div class="row">';
-          for( let i=0 ; i<items.length ; i++)
-          {
-             
-             txt=txt+'<div class="col">'
-             txt=txt+'<input type="checkbox">';
-             txt=txt+'<img  src="https://picsum.photos/200/200?random=30">';
-            
-             txt=txt+'<input type="text" placeholder="enter new price">'+items[i];
-        
-             txt=txt+'</div>';
-             txt=txt+'<br>';
-          }
-          txt=txt+'</div>';
-             txt=txt+'</div>';
-          document.getElementById("Mylist").innerHTML=txt;
+ txt=txt+'<div class="container">'
+    txt=txt+'<div class="row">';
+ for( let i=0 ; i<obj.length ; i++)
+{  
+    txt=txt+'<div class="col">'
+   txt=txt+'<input type="checkbox">';
+   //txt=txt+'<img src="https://picsum.photos/100/100?random=50">'+'<br>';
+   txt=txt+`<img src="${obj[i].image_url}" style="height:100px ; width:100px"><br>`;
+   txt=txt+JSON.stringify(obj[i].name)+'<br>'+JSON.stringify(obj[i].title)+'<br>'+JSON.stringify(obj[i].description)+'<br>'+JSON.stringify(obj[i].price)+'<br>';
+   txt=txt+'<input type="text" placeholder="enter new price">';
+
+   txt=txt+'</div>';
+   txt=txt+'<br>';
+ }
+ txt=txt+'</div>';
+    txt=txt+'</div>';
+document.getElementById("Mylist").innerHTML=txt; 
+
+         
+
+
+
+
+            //till here
         }
 
-        function submitFunction()
-        {
-          document.getElementById("submit").submit();
+        /* This function is called when search button is clicked */
+        function button_call() {
+            /* Call get_item_catalog API */
+            self.get_item_catalog().then (function (response) {
+                console.log("Call print (response) after get_item_catalog API completion");
+                /* Call print with response value returned from the AJAX call */
+                print (response);
+                
+            })
         }
 
+        /* Testing button call after page load (instead of calling from button click) */
+       // button_call();
         
     </script>
 
@@ -117,7 +160,7 @@
             <forms>
               <input type="text" placeholder="Search" id="itemToCheck">
               
-              <button type="button" class="btn btn-primary btn-" onclick="print()">SEARCH</button>
+              <button type="button" class="btn btn-primary btn-" onclick="button_call()">SEARCH</button>
               <p id="demo"></p>
             </forms>
           </div>
@@ -125,7 +168,7 @@
     
         <div class="row">
           <div class="col">
-             <div id="Mylist" style="color:blue ; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> </div>
+             <div id="Mylist" style="color:purple; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> </div>
           </div>
         </div>
       </div>
@@ -138,27 +181,10 @@
 </div>
 
 
-    <!-- <div class="row">
-      <div class="col-6">
-        <forms>
-          <input type="text" placeholder="Search" id="itemToCheck">
-          
-          <button type="button" class="btn btn-primary btn-" onclick="print()">SEARCH</button>
-          <p id="demo"></p>
-        </forms>
-      </div>
-     </div>
-
-    <div class="row">
-      <div class="col">
-         <div id="Mylist" style="color:blue ; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> </div>
-      </div>
-    </div> -->
-
 </div>
 <hr>
 
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col-4">
       
@@ -174,7 +200,7 @@
       
     </div>
   </div>
-</div>
+</div> -->
 
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -197,3 +223,24 @@
             </div>
             <img src="https://picsum.photos/200/100?random=1" alt="">
             <h3>Brookbond tea</h3> -->
+
+
+            <!-- <script>
+              function get_item_catalog() {
+                  let searchString="lipton";
+                  $.post("https://nudelhibazaar.com/api/get-item-catalog"
+                      ,JSON.stringify({ search_string: searchString })
+                      ,function(result) {
+                          console.log(result.status);
+      
+                          let obj = JSON.parse(result.catalog_list);
+                          for (var i = 0; i < obj.length; i++) {
+                             console.log("name " + i + ": " + obj[i].name);
+                             console.log("image_url " + i + ": " + obj[i].image_url);
+                             console.log("title " + i + ": " + obj[i].title);
+                             console.log("description " + i + ": " + obj[i].description);
+                          }
+                      }
+                  );
+              }
+          </script> -->
