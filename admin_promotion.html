@@ -65,11 +65,10 @@
  txt=txt+'<div class="container">'
     txt=txt+'<div class="row">';
  for( let i=0 ; i<obj.length ; i++)
-{  
+{   //txt = txt.replace(/"/g,"");
     txt=txt+'<div class="col">'
    txt=txt+'<input type="checkbox">';
-   //txt=txt+'<img src="https://picsum.photos/100/100?random=50">'+'<br>';
-   txt=txt+`<img src="${obj[i].image_url}" style="height:100px ; width:100px"><br>`;
+   txt=txt+`<img src="${obj[i].image_url}" style="height:150px ; width:150px"><br>`;
    txt=txt+JSON.stringify(obj[i].name)+'<br>'+JSON.stringify(obj[i].title)+'<br>'+JSON.stringify(obj[i].description)+'<br>'+JSON.stringify(obj[i].price)+'<br>';
    txt=txt+'<input type="text" placeholder="enter new price">';
 
@@ -129,7 +128,40 @@ document.getElementById("Mylist").innerHTML=txt;
 <hr>
 <div class="container">
     <div class="row">
-      <textarea id="txtarea" name="txtarea" rows="10" cols="160"> </textarea>
+      <form>
+        <div class="form-group">
+           <label for="exampleFormControlInput1" >Name</label><br>
+          <input type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Description</label>
+          <textarea class="form-control" id="description" rows="3" cols="200" placeholer="Description" title="enter description"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="exampleFormControlInput1" >Start-Date</label><br>
+            <input type="date" class="form-control" placeholder="First name" id="start_date" title="enter start date">
+          </div>
+          <div class="col">
+            <label for="exampleFormControlInput1" >End-Date</label><br>
+            <input type="date" class="form-control" placeholder="Last name" id="end_date" title="enter end date">
+          </div>
+        </div>
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+              <br><a href="https://nudelhibazaar.com/process-promotions" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" >Save Changes</a>
+            </div>
+            <div class="col-4">
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
 </div>
 <hr>
@@ -140,9 +172,39 @@ document.getElementById("Mylist").innerHTML=txt;
 <div class="container">
     
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch modal
+  <div class="container">
+    <div class="row">
+        <p> PROMOTION ITEMS </p>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <figure class="figure" name="add_img" id="add_img">
+          <img src="https://picsum.photos/200/200?random=19" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+          <figcaption class="figure-caption text-center">Name: Bagh-Bakri <br> Description: : Refresh the mood <br> Price:$2 <br> New-Price: $1.5</figcaption>
+        </figure>
+      </div>
+    </div>
+      <hr>
+      <div class="row">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="height:50px ; width:300px">ADD SALE ITEMS</button>
+      </div>
+  </div>
+  
+ 
 </button>
+
+<!--to add new items-->
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+    </div>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
